@@ -7,9 +7,11 @@ public final class Jeu {
 	
 	public static void run(Plateau plateau)
 	{
+		plateau.Afficher();
 		boolean token = false,victoire = false;
 		Scanner sc = new Scanner(System.in);
 		int x,y;
+		
 		//Jeu
 		while(!victoire || plateau.complet())
 		{
@@ -22,10 +24,10 @@ public final class Jeu {
 			x = sc.nextInt();
 			System.out.println("Entrez y : ");
 			y = sc.nextInt();
-			
 			plateau.placer(token, x, y);
-			plateau.Afficher();
-			if((victoire = plateau.victoire()))
+			plateau.Afficher();	
+			victoire = plateau.victoire();
+			if(victoire)
 				break;
 			//Changement de tour
 			token = !token;

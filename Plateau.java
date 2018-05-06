@@ -1,11 +1,25 @@
 package com;
 
+import java.util.Arrays;
+
 public class Plateau {
 	protected int matrix[][];
 	
 	public Plateau()
 	{
 		this.matrix = new int[3][3];
+	}
+	
+	//Constructeur de copie
+	public Plateau(Plateau copy)
+	{
+		int[][] m = copy.getPlateau();
+		matrix = new int[m.length][];
+		
+		for(int i = 0;i < m.length;i++)
+		{
+			matrix[i] = Arrays.copyOf(m[i], m[i].length);
+		}
 	}
 	
 	public void placer(boolean token,int x, int y)
@@ -29,6 +43,7 @@ public class Plateau {
 		return true;
 	}
 	
+	//TOKEN = 1 : O ; TOKEN = 2 : X
 	public void Afficher()
 	{
 		for(int i  = 0;i < matrix.length;i++)
@@ -61,7 +76,7 @@ public class Plateau {
 		//Controle des lignes
 		for(int i = 0;i < matrix.length;i++)
 		{
-			for(int j = 0;j < matrix.length;j++)
+			for(int j = 0;j < matrix[i].length;j++)
 			{
 				if(matrix[j][i]==1)
 					nombre_cases_identiques_O++;
@@ -78,7 +93,7 @@ public class Plateau {
 		//Controle des colonnes
 		for(int i = 0;i < matrix.length;i++)
 		{
-			for(int j = 0;j < matrix.length;j++)
+			for(int j = 0;j < matrix[i].length;j++)
 			{
 				if(matrix[i][j]==1)
 					nombre_cases_identiques_O++;
@@ -100,5 +115,18 @@ public class Plateau {
 		
 		//Pas de victoire
 		return false;
+	}
+	
+	public int[][] getPlateau()
+	{
+		return matrix;
+	}
+	
+	public void setToken(int x, int y, int token)
+	{
+		if(x >= 0 && x < matrix.length && y >= 0 && y < matrix.length)
+		{
+			matrix[x][y] = token;
+		}
 	}
 }
