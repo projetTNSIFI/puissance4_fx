@@ -46,4 +46,9 @@ public class Noeud {
 			}
 		}
 	}
+	
+	public List<Noeud> getFils()
+	{
+		return fils;
+	}
 }
