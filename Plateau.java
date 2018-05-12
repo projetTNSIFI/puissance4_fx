@@ -22,11 +22,9 @@ public class Plateau {
 		}
 	}
 	
-	public void placer(boolean token,int x, int y)
+	//Place un pion sur le plateau
+	public void placer(int joueur,int x, int y)
 	{
-		char joueur = 1;
-		if(token)
-			joueur = 2;
 		matrix[y][x] = joueur;
 	}
 	
@@ -36,14 +34,14 @@ public class Plateau {
 		{
 			for(int j = 0;j < matrix[i].length;j++)
 			{
-				if(matrix[j][i]==0)
+				if(matrix[j][i] == 0)
 					return false;
 			}
 		}
 		return true;
 	}
 	
-	//TOKEN = 1 : O ; TOKEN = 2 : X
+	//TOKEN = -1 : O ; TOKEN = 1 : X
 	public void Afficher()
 	{
 		for(int i  = 0;i < matrix.length;i++)
@@ -55,10 +53,10 @@ public class Plateau {
 				case 0:
 					System.out.print(".");
 					break;
-				case 1:
+				case Jeu.O:
 					System.out.print("O");
 					break;
-				case 2:
+				case Jeu.X:
 					System.out.print("X");
 					break;
 				}
@@ -68,7 +66,8 @@ public class Plateau {
 		}
 	}
 	
-	public boolean victoire()
+	//Retourne le joueur vainqueur, 0 si aucun joueur ne gagne.
+	public int victoire()
 	{
 		int nombre_cases_identiques_O = 0;
 		int nombre_cases_identiques_X = 0;
@@ -78,13 +77,16 @@ public class Plateau {
 		{
 			for(int j = 0;j < matrix[i].length;j++)
 			{
-				if(matrix[j][i]==1)
+				if(matrix[j][i]==Jeu.O)
 					nombre_cases_identiques_O++;
-				else if(matrix[j][i]==2)
+				else if(matrix[j][i]==Jeu.X)
 					nombre_cases_identiques_X++;
 				
-				if(nombre_cases_identiques_O == 3 || nombre_cases_identiques_X == 3)
-					return true;
+				
+				if(nombre_cases_identiques_O == 3)
+					return Jeu.O;
+				else if(nombre_cases_identiques_X == 3)
+					return Jeu.X;
 			}
 			nombre_cases_identiques_O = 0;
 			nombre_cases_identiques_X = 0;
@@ -95,38 +97,43 @@ public class Plateau {
 		{
 			for(int j = 0;j < matrix[i].length;j++)
 			{
-				if(matrix[i][j]==1)
+				if(matrix[i][j]==Jeu.O)
 					nombre_cases_identiques_O++;
-				else if(matrix[i][j]==2)
+				else if(matrix[i][j]==Jeu.X)
 					nombre_cases_identiques_X++;
-				
-				if(nombre_cases_identiques_O == 3 || nombre_cases_identiques_X == 3)
-					return true;
+			
+				if(nombre_cases_identiques_O == 3)
+					return Jeu.O;
+				else if(nombre_cases_identiques_X == 3)
+					return Jeu.X;
 			}
 			nombre_cases_identiques_O = 0;
 			nombre_cases_identiques_X = 0;
 		}
 		
 		//Controle des diagonales
-		if(matrix[0][0] == matrix[1][1] && matrix[0][0] == matrix[2][2] && matrix[1][1] != 0)
-			return true;
-		if(matrix[0][2] == matrix[1][1] && matrix[0][2] == matrix[2][0] && matrix[1][1] != 0)
-			return true;
+		if(matrix[0][0] == matrix[1][1] && matrix[0][0] == matrix[2][2] && matrix[1][1] == Jeu.O)
+			return Jeu.O;
+		if(matrix[0][2] == matrix[1][1] && matrix[0][2] == matrix[2][0] && matrix[1][1] == Jeu.O)
+			return Jeu.O;
+		
+		if(matrix[0][0] == matrix[1][1] && matrix[0][0] == matrix[2][2] && matrix[1][1] == Jeu.X)
+			return Jeu.X;
+		if(matrix[0][2] == matrix[1][1] && matrix[0][2] == matrix[2][0] && matrix[1][1] == Jeu.X)
+			return Jeu.X;
 		
 		//Pas de victoire
-		return false;
+		return 0;
 	}
 	
+	//Retourne la grille de jeu
 	public int[][] getPlateau()
 	{
 		return matrix;
 	}
 	
-	public void setToken(int x, int y, int token)
+	public void setPlateau(Plateau plateau)
 	{
-		if(x >= 0 && x < matrix.length && y >= 0 && y < matrix.length)
-		{
-			matrix[x][y] = token;
-		}
+		this.matrix = plateau.matrix;
 	}
 }

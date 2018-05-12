@@ -3,40 +3,45 @@ import java.util.Scanner;
 
 import com.Plateau;
 
+import base.Joueur;
+
 public final class Jeu {
-	
+	public static final int O=-1;
+	public static final int X=1;
+	public static Scanner scanner = new Scanner(System.in);
 	public static void run(Plateau plateau)
 	{
-		plateau.Afficher();
-		boolean token = false,victoire = false;
-		Scanner sc = new Scanner(System.in);
-		int x,y;
+		int victoire = 0, joueur = Jeu.O;
+		
+		//Création de deux joueurs 
+		Joueur humain = new Humain("Joueur",O);
+		Joueur ordinateur = new Ordinateur("Ordinateur",X,3);
 		
 		//Jeu
-		while(!victoire || plateau.complet())
+		while(!plateau.complet())
 		{
+			
 			//Tour du joueur
-			if(!token)
-				System.out.println("Tour du joueur O");
+			if(joueur == Jeu.O)
+				humain.jouer(plateau);
 			else
-				System.out.println("Tour du joueur X");
-			System.out.println("Entrez x : ");
-			x = sc.nextInt();
-			System.out.println("Entrez y : ");
-			y = sc.nextInt();
-			plateau.placer(token, x, y);
-			plateau.Afficher();	
+				ordinateur.jouer(plateau);
+			
+			//Vérification de la victoire
 			victoire = plateau.victoire();
-			if(victoire)
+			if(victoire != 0)
 				break;
+			
 			//Changement de tour
-			token = !token;
+			joueur *= -1;
 		}
 		
-		if(victoire)
-			System.out.println("Victoire du joueur " + (token ? "X" : "O"));
+		if(victoire != 0)
+			System.out.println("Victoire du joueur " + (joueur == Jeu.X ? "X" : "O"));
 		else
 			System.out.println("Match nul");
-		sc.close();
+		
+		//Fermeture du scanner.
+		scanner.close();
 	}
 }
