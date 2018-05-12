@@ -65,4 +65,13 @@ public class Evaluation {
 		}
 		
 	}
+	
+	public static void afficherArbre(Noeud courant)
+	{
+		for(Noeud f : courant.fils)
+		{
+			f.plateau.Afficher();
+			System.out.println("Score du noeud : " + f.valeur_noeud);
+		}
+	}
 }

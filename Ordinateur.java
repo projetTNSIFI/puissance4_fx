@@ -27,6 +27,12 @@ public class Ordinateur extends Joueur{
 		//Evaluation des noeuds
 		Evaluation.evaluer_noeuds(racine, profondeur);
 		
+		//AFFICHAGE
+		System.out.println("Voici les solutions possibles envisagées par l'ordinateur : ");
+		Evaluation.afficherArbre(racine);
+				
+		//FIN AFFICHAGE
+				
 		//Jouer le noeud le plus intéressant.
 		prochain_coup = racine.filsMax();
 		plateau.setPlateau(prochain_coup.plateau);

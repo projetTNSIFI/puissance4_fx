@@ -2,11 +2,10 @@ package com;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.JarException;
 
 //Classe permettant de générer l'arbre contenant tous les plateaux possibles.
 public class Noeud {
-	public static final int UNDEFINED=9999999;//Valeur permettant de savoir si la valeur d'un noeud a été trouvée ou non.
+	public static final int UNDEFINED=-9999999;//Valeur permettant de savoir si la valeur d'un noeud a été trouvée ou non.
 	public static final int MIN=-1;//NOEUD MIN
 	public static final int MAX=1;//NOEUD MAX
 	protected Noeud pere;//Noeud pere
@@ -71,6 +70,8 @@ public class Noeud {
 				Noeud nouveau = new Noeud(this.plateau, this, type * -1);
 				nouveau.plateau.placer(joueur, i, j);//On joue dans une case libre.
 				this.fils.add(nouveau);//ajout du noeud fils aux noeuds de l'arbre.
+				
+				
 			}
 		}
 	}
