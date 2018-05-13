@@ -12,21 +12,19 @@ public class Humain extends Joueur{
 	//Tour du joueur humain.
 	public void jouer(Plateau plateau) 
 	{
-		int length = plateau.getPlateau().length;
-		int x,y;
+		int length = plateau.getPlateau()[0].length;
+		int x;
 		
 		System.out.println("Tour du joueur " + nom);
 		//L'utilisateur entre les coordonnées.
 		do
 		{
-			System.out.println("Entrez x : ");
+			System.out.println("Entrez le numéro de la colonne : ");
 			x = Jeu.scanner.nextInt();
-			System.out.println("Entrez y : ");
-			y = Jeu.scanner.nextInt();
-		}while(x < 0 || x >= length || y < 0 || y >= length || plateau.getPlateau()[y][x] != 0);
+		}while(x < 0 || x >= length);
 		
 		//Place le pion sur le plateau.
-		plateau.placer(pion, x, y);
+		plateau.placer(pion, x);
 		
 		//Affichage du plateau après le tour de jeu.
 		plateau.Afficher();

@@ -17,12 +17,12 @@ public class Ordinateur extends Joueur{
 	{
 		System.out.println("Tour du joueur " + nom);
 		
-		//Le noeud racine correspond toujours au tour de l'adversaire.
+		//Le noeud racine correspond toujours au plateau actuel.
 		Noeud racine = new Noeud(plateau, Jeu.O);
 		Noeud prochain_coup;
 		
-		//Génération d'un arbre de recherche d'une profondeur de 2.
-		Evaluation.genererArbre(racine, 2);
+		//Génération d'un arbre de recherche d'une profondeur N.
+		Evaluation.genererArbre(racine, profondeur);
 		
 		//Evaluation des noeuds
 		Evaluation.evaluer_noeuds(racine, profondeur);
@@ -37,6 +37,7 @@ public class Ordinateur extends Joueur{
 		prochain_coup = racine.filsMax();
 		plateau.setPlateau(prochain_coup.plateau);
 		
+		System.out.println("Coup joué : ");
 		plateau.Afficher();
 	}
 	

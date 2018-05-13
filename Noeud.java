@@ -59,6 +59,7 @@ public class Noeud {
 		int joueur = (type == MIN) ? Jeu.X : Jeu.O;
 		
 		//Parmi tous les coups possibles
+		/*
 		for(int i = 0;i < matrix.length;i++)
 		{
 			for(int j = 0;j < matrix[i].length;j++)
@@ -73,6 +74,16 @@ public class Noeud {
 				
 				
 			}
+		}*/
+		
+		for(int colonne = 0;colonne < matrix[0].length;colonne++)
+		{
+			if(matrix[0][colonne]!=0)
+				continue;
+			//Si aucun coup n'a été joué à cet emplacement du plateau, on l'ajoute aux fils du noeud courant (en inversant le type du noeud)
+			Noeud nouveau = new Noeud(this.plateau, this, type * -1);
+			nouveau.plateau.placer(joueur, colonne);//On joue dans une case libre.
+			this.fils.add(nouveau);//ajout du noeud fils aux noeuds de l'arbre.
 		}
 	}
 	

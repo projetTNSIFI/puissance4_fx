@@ -15,7 +15,7 @@ public final class Jeu {
 		
 		//Création de deux joueurs 
 		Joueur humain = new Humain("Joueur",O);
-		Joueur ordinateur = new Ordinateur("Ordinateur",X,3);
+		Joueur j2 = new Ordinateur("Joueur",X,2);
 		
 		//Jeu
 		while(!plateau.complet())
@@ -25,7 +25,7 @@ public final class Jeu {
 			if(joueur == Jeu.O)
 				humain.jouer(plateau);
 			else
-				ordinateur.jouer(plateau);
+				j2.jouer(plateau);
 			
 			//Vérification de la victoire
 			victoire = plateau.victoire();
