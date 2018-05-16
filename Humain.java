@@ -1,6 +1,13 @@
 package com;
 
 import base.Joueur;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class Humain extends Joueur{
 	
@@ -10,23 +17,33 @@ public class Humain extends Joueur{
 	}
 	
 	//Tour du joueur humain.
-	public void jouer(Plateau plateau) 
+	public void jouer(Stage rootStage, Plateau plateau) 
 	{
-		int length = plateau.getPlateau()[0].length;
-		int x;
 		
-		System.out.println("Tour du joueur " + nom);
-		//L'utilisateur entre les coordonnées.
-		do
+		Scene scene= rootStage.getScene();
+		Group group = (Group) scene.getRoot();
+		GridPane grid = (GridPane) group.getChildren().get(0);
+		
+		//On autorise le clic sur chaque bouton
+		for(int i = 0;i < grid.getChildren().size();i++)
 		{
-			System.out.println("Entrez le numéro de la colonne : ");
-			x = Jeu.scanner.nextInt();
-		}while(x < 0 || x >= length);
-		
-		//Place le pion sur le plateau.
-		plateau.placer(pion, x);
-		
-		//Affichage du plateau après le tour de jeu.
-		plateau.Afficher();
+			Pion pion = (Pion) grid.getChildren().get(i);
+			//Fonction qui devra être réalisé lors du clic sur le bouton.
+			pion.setOnMouseReleased(new EventHandler<MouseEvent>()
+					{
+						@Override
+						public void handle(MouseEvent e)
+						{
+							int i = pion.i;
+							int j = pion.j;
+							if(plateau.getPlateau()[i][j] == 0)
+							{
+								plateau.placer(Jeu.O, j);
+								pion.setFill(Color.BLUE);
+								Jeu.changerJoueur();
+							}
+						}
+					});
+		}
 	}
 }

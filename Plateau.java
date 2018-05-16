@@ -2,6 +2,12 @@ package com;
 
 import java.util.Arrays;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
 public class Plateau {
 	protected int matrix[][];
 	
@@ -48,7 +54,7 @@ public class Plateau {
 	}
 	
 	//TOKEN = -1 : O ; TOKEN = 1 : X
-	public void Afficher()
+	public void afficherConsole()
 	{
 		for(int i  = 0;i < matrix.length;i++)
 		{
@@ -69,6 +75,100 @@ public class Plateau {
 			
 			}
 			System.out.println();
+		}
+	}
+	
+	public void afficher(Stage rootStage)
+	{
+		//Récupération du root de la scene
+		Scene scene = rootStage.getScene();
+		Group group = (Group) scene.getRoot();
+		GridPane grid = (GridPane)group.getChildren().get(0);
+		
+		//Ajout d'un bouton pour chaque case dans le groupe.
+		if(grid.getChildren().isEmpty())
+		{
+			//On ajoute les boutons au groupe
+			for(int i = 0; i < matrix.length;i++)
+			{
+				for(int j = 0; j < matrix[i].length;j++)
+				{
+					Pion pion;
+					switch(matrix[i][j])
+					{
+					case 0:
+						pion = new Pion(i*50,j*50,50,i,j);
+						pion.setFill(Color.GREY);
+						break;
+					case Jeu.X:
+						pion = new Pion(i*50,j*50,50,i,j);
+						pion.setFill(Color.RED);
+						break;
+					case Jeu.O:
+						pion = new Pion(i*50,j*50,50,i,j);
+						pion.setFill(Color.BLUE);
+						break;
+					default :
+						pion = new Pion(i*50,j*50,50,i,j);
+						pion.setFill(Color.GREY);
+						break;
+					}
+					
+					//Positionnement des boutons
+					//btn.setLayoutX(100 * i);
+					//btn.setLayoutY(100 * j);
+					//btn.setPadding(new Insets(90));
+					//Ajout du bouton au groupe.
+					grid.add(pion,j,i);
+				}
+			}
+		}
+		//Si le groupe contient déjà des boutons, on met à jour leur contenu.
+		else
+		{
+			/*
+			for(int i = 0;i < matrix.length;i++)
+			{
+				for(int j = 0; j < matrix[i].length;j++)
+				{
+					Bouton btn = (Bouton) grid.getChildren().get(j + 3 * i);
+					switch(matrix[j][i])
+					{
+					case 0:
+						btn.setText("-");
+						break;
+					case Jeu.X:
+						btn.setText("X");
+						break;
+					case Jeu.O:
+						btn.setText("O");
+						break;
+					default :
+						btn.setText("-");
+						break;
+					}
+				}
+			}*/
+			
+			for(int i = 0;i < grid.getChildren().size();i++)
+			{
+				Pion pion = (Pion) grid.getChildren().get(i);
+				switch(matrix[pion.i][pion.j])
+				{
+				case 0:
+					pion.setFill(Color.GREY);
+					break;
+				case Jeu.X:
+					pion.setFill(Color.RED);
+					break;
+				case Jeu.O:
+					pion.setFill(Color.BLUE);
+					break;
+				default :
+					pion.setFill(Color.GREY);
+					break;
+				}
+			}
 		}
 	}
 	

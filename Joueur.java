@@ -2,6 +2,8 @@ package base;
 
 import com.Plateau;
 
+import javafx.stage.Stage;
+
 public abstract class Joueur {
 	protected String nom;
 	protected int pion;
@@ -12,7 +14,7 @@ public abstract class Joueur {
 		this.pion = pion;
 	}
 	
-	public abstract void jouer(Plateau plateau);
+	public abstract void jouer(Stage rootStage, Plateau plateau);
 	
 	public String getNom()
 	{

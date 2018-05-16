@@ -71,7 +71,7 @@ public class Evaluation {
 	{
 		for(Noeud f : courant.fils)
 		{
-			f.plateau.Afficher();
+			f.plateau.afficherConsole();
 			System.out.println("Score du noeud : " + f.valeur_noeud);
 		}
 	}
